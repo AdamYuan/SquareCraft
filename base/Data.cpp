@@ -11,6 +11,7 @@ using namespace std;
 #define DOWN_KEY			SDLK_s
 #define SPACE_KEY			SDLK_SPACE
 //datas
+#define PROGRAM_PATH				(GetProgramPath())
 #define _X					"X"
 #define _Y					"Y"
 #define MAP_WIDTH			131072
@@ -48,4 +49,3 @@ string GetProgramPath()
 	}
 	return _PATH;
 }
-

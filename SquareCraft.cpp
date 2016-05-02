@@ -13,7 +13,7 @@ int main()
 	//SDL_ShowCursor(0);
 	Terrain::SetSeed(11);
 	Terrain::Generate();
-	//cout << GetProgramPath() << endl;
+	cout << PROGRAM_PATH << endl;
 	while(1)
 	{
 		GameLoop::Loop();

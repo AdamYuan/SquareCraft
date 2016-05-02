@@ -16,15 +16,15 @@ class TextureManager
 		static map<string,SDL_Texture*>::iterator it;
 		static string GetBlockTexturePath(Block *b)
 		{
-			return GetProgramPath() + "/texture/blocks/" + b->TextureName + ".png";
+			return PROGRAM_PATH + "/texture/blocks/" + b->TextureName + ".png";
 		}
 		static string GetEntityTexturePath(Entity *ent)
 		{
-			return GetProgramPath() + "/texture/entitys/" + ent->TextureName + ".png";
+			return PROGRAM_PATH + "/texture/entitys/" + ent->TextureName + ".png";
 		}
 		static string GetGameTexturePath(string name)
 		{
-			return GetProgramPath() + "/texture/" + name + ".png";
+			return PROGRAM_PATH + "/texture/" + name + ".png";
 		}
 		static SDL_Texture* GetTexture (string name,string path)
 		{
