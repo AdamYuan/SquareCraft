@@ -37,3 +37,15 @@ string DESTROY_TEXTURE(double n)
 		ss<<"destroy_stage_"<<(int)n;
 	return ss.str();
 }
+static string _PATH="";
+string GetProgramPath()
+{
+	if(_PATH=="")
+	{
+		static char _p[1000];
+		getcwd(_p, 1000);
+		_PATH = string(_p);
+	}
+	return _PATH;
+}
+
