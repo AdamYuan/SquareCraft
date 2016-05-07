@@ -42,7 +42,7 @@ class GameMap
 			if(sy <= -BLOCK_SIZE-ent->TextureHeight*BLOCK_SIZE || sy >= ScreenH+ent->TextureHeight*BLOCK_SIZE)
 				return;
 			SDL_Texture *tex=TextureManager::GetEntityTexture(ent);
-			Window::Draw(tex,sx,sy,ent->TextureWidth*BLOCK_SIZE+0.99,ent->TextureHeight*BLOCK_SIZE+0.99);
+			Window::Draw(tex,sx,sy,ent->TextureWidth*BLOCK_SIZE+0.5,ent->TextureHeight*BLOCK_SIZE+0.5);
 		}
 		static void drawPlayerHealth()
 		{
@@ -129,7 +129,7 @@ class GameMap
 		}
 		static void ShowMap()
 		{
-			cout << Player.Y << endl;
+			cout << ents.size() << endl;
 			double bxs,bys,bxe,bye;
 			GetMapXyFromScreenXy(0,0,&bxs,&bys);
 			GetMapXyFromScreenXy(ScreenW+BLOCK_SIZE+1,ScreenH+BLOCK_SIZE+1,&bxe,&bye);
@@ -148,7 +148,6 @@ class GameMap
 			}
 			EntitysAi::EntityDo(&Player);
 			drawEntity(&Player);
-
 		}
 		//
 		///////////////BLOCK

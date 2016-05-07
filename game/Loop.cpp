@@ -17,7 +17,6 @@ class GameLoop
 		{
 			int mx,my;
 			SDL_GetMouseState(&mx,&my);
-			//Window::Clear();
 			GameMap::RefreshScreenSize();
 			GameMap::ShowBackground();
 			GameMap::ShowMap();

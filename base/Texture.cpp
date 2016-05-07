@@ -28,12 +28,19 @@ class TextureManager
 		}
 		static SDL_Texture* GetTexture (string name,string path)
 		{
-			TextureManager::it=TextureManager::textures.find(name);
-			if(TextureManager::it==TextureManager::textures.end())
+			try
 			{
-				TextureManager::textures[name]=Window::LoadImage(path);
+				TextureManager::it=TextureManager::textures.find(name);
+				if(TextureManager::it==TextureManager::textures.end())
+				{
+					TextureManager::textures[name]=Window::LoadImage(path);
+				}
+				return TextureManager::textures[name];
 			}
-			return TextureManager::textures[name];
+			catch(std::runtime_error)
+			{
+				return nullptr;
+			}
 		}
 	public:
 		static SDL_Texture* GetBlockTexture (Block *b)

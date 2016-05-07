@@ -90,7 +90,7 @@ class GameEvents
 			if(up_down)
 			{
 				GameMap::Player.Y += MOVE_SPEED+GRAVITY;
-				GameMap::EntityTools::EntityHitTest(&GameMap::Player,_Y,MOVE_SPEED+GRAVITY);
+				GameMap::EntityTools::EntityHitTest(&GameMap::Player,_Y,MOVE_SPEED);
 			}
 			if(right_down)
 			{
