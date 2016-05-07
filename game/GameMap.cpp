@@ -42,7 +42,7 @@ class GameMap
 			if(sy <= -BLOCK_SIZE-ent->TextureHeight*BLOCK_SIZE || sy >= ScreenH+ent->TextureHeight*BLOCK_SIZE)
 				return;
 			SDL_Texture *tex=TextureManager::GetEntityTexture(ent);
-			Window::Draw(tex,sx,sy,ent->TextureWidth*BLOCK_SIZE+0.5,ent->TextureHeight*BLOCK_SIZE+0.5);
+			Window::Draw(tex,sx,sy,ent->TextureWidth*BLOCK_SIZE+0.99,ent->TextureHeight*BLOCK_SIZE+0.99);
 		}
 		static void drawPlayerHealth()
 		{
