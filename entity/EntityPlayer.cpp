@@ -9,8 +9,8 @@ class EntityPlayer : public Entity
 			HealthMax=20;
 			Health=HealthMax;
 			TextureName="player";
-			TextureWidth=1,TextureHeight=1.8;
-			Width=0.5,Height=1.8;
+			TextureWidth=1,TextureHeight=1.9;
+			Width=0.5,Height=1.9;
 			TextureX=-0.25,TextureY=0;
 		}
 };

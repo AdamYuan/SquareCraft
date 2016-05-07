@@ -22,8 +22,8 @@ class GameLoop
 			GameMap::ShowMap();
 			while(SDL_PollEvent(&evt))
 				GameEvents::ReciveEvent(evt);
-			GameMap::GetSelectedXyFromMouseXy(mx,my);
 			GameEvents::AfterReciveEvent();
+			GameMap::GetSelectedXyFromMouseXy(mx,my);
 			GameMap::SelectBlock(GameMap::SelectedX,GameMap::SelectedY);
 			GameMap::ShowGui();
 			Window::Present();
