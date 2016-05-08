@@ -79,11 +79,12 @@ class GameMap
 		{
 			if(x < 1 || x > MAP_WIDTH)return false;
 			if(y < 1 || y > MAP_HEIGHT)return false;
-			return	GetBlock(x , y) ->HaveHitBox ||
+			return //(!EntityTools::EntityBlockCoincident(&Player,x,y)) && 
+				(GetBlock(x , y) ->HaveHitBox ||
 				GetBlock(x-1,y) ->HaveHitBox||
 				GetBlock(x+1,y) ->HaveHitBox||
 				GetBlock(x,y-1) ->HaveHitBox||
-				GetBlock(x,y+1) ->HaveHitBox; 
+				GetBlock(x,y+1) ->HaveHitBox); 
 		}
 		static void RefreshScreenSize()
 		{
@@ -129,7 +130,7 @@ class GameMap
 		}
 		static void ShowMap()
 		{
-			cout << ents.size() << endl;
+			//cout << ents.size() << endl;
 			double bxs,bys,bxe,bye;
 			GetMapXyFromScreenXy(0,0,&bxs,&bys);
 			GetMapXyFromScreenXy(ScreenW+BLOCK_SIZE+1,ScreenH+BLOCK_SIZE+1,&bxe,&bye);

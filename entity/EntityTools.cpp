@@ -45,7 +45,7 @@ class EntityTools
 			}
 			return vec;
 		}
-		static bool EntityHitTest(Entity *ent,string direct,double dist)
+		static bool EntityHitTest(Entity *ent,string direct,double dist,bool hitEntity=true)
 		{
 			vector<Entity*> vec = GetCoincidentEntitys(ent);
 			bool return_v=false;
@@ -60,16 +60,17 @@ class EntityTools
 						break;
 					}	
 				//vec = yDirect<0 ? GetEntitys(1,ent->X,ent->Y+yDirect) : GetEntitys(1,ent->X,ent->Y+ent->Height+yDirect);
-				for(int i=0;i<vec.size();i++)
-				{
-					double Y = yDirect<0 ? vec[i]->Y+vec[i]->Height : vec[i]->Y-ent->Height;
-					bool b=yDirect<0 ? (ent->Y < Y) && (Y < ent->Y+ent->Height) : (ent->Y > Y) && (Y > ent->Y-ent->Height);
-					if(b)
+				if(hitEntity)
+					for(int i=0;i<vec.size();i++)
 					{
-						ent->Y = Y;
-						return_v=true;
+						double Y = yDirect<0 ? vec[i]->Y+vec[i]->Height : vec[i]->Y-ent->Height;
+						bool b=yDirect<0 ? (ent->Y < Y) && (Y < ent->Y+ent->Height) : (ent->Y > Y) && (Y > ent->Y-ent->Height);
+						if(b)
+						{
+							ent->Y = Y;
+							return_v=true;
+						}
 					}
-				}
 			}
 			else if(direct==_X)
 			{
@@ -81,16 +82,17 @@ class EntityTools
 						return_v=true;
 						break;
 					}
-				for(int i=0;i<vec.size();i++)
-				{
-					double X = xDirect<0 ? vec[i]->X+vec[i]->Width : vec[i]->X-ent->Width;
-					bool b=xDirect<0 ? (ent->X < X) && (X < ent->X+ent->Width) : (ent->X > X) && (X > ent->X-ent->Width);
-					if(b)
+				if(hitEntity)
+					for(int i=0;i<vec.size();i++)
 					{
-						ent->X = X;
-						return_v=true;
+						double X = xDirect<0 ? vec[i]->X+vec[i]->Width : vec[i]->X-ent->Width;
+						bool b=xDirect<0 ? (ent->X < X) && (X < ent->X+ent->Width) : (ent->X > X) && (X > ent->X-ent->Width);
+						if(b)
+						{
+							ent->X = X;
+							return_v=true;
+						}
 					}
-				}
 			}
 			return return_v;
 		}

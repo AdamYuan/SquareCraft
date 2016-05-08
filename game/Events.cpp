@@ -90,17 +90,17 @@ class GameEvents
 			if(up_down)
 			{
 				GameMap::Player.Y += MOVE_SPEED+GRAVITY;
-				GameMap::EntityTools::EntityHitTest(&GameMap::Player,_Y,MOVE_SPEED);
+				GameMap::EntityTools::EntityHitTest(&GameMap::Player,_Y,MOVE_SPEED,false);
 			}
 			if(right_down)
 			{
 				GameMap::Player.X += MOVE_SPEED;
-				GameMap::EntityTools::EntityHitTest(&GameMap::Player,_X,MOVE_SPEED);
+				GameMap::EntityTools::EntityHitTest(&GameMap::Player,_X,MOVE_SPEED,false);
 			}
 			if(left_down)
 			{
 				GameMap::Player.X -= MOVE_SPEED;
-				GameMap::EntityTools::EntityHitTest(&GameMap::Player,_X,-MOVE_SPEED);
+				GameMap::EntityTools::EntityHitTest(&GameMap::Player,_X,-MOVE_SPEED,false);
 			}
 			if(space_down)
 				GameMap::EntitysAi::PlayerJump();

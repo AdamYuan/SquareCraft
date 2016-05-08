@@ -10,7 +10,8 @@ class EntitysAi
 		static void EntityFall(Entity *ent)
 		{
 			ent->Y -= GRAVITY;
-			GameMap::EntityTools::EntityHitTest(ent,_Y,-GRAVITY);
+			bool hitEntity=(ent->TextureName != Entitys::player.TextureName);
+			GameMap::EntityTools::EntityHitTest(ent,_Y,-GRAVITY,hitEntity);
 		}
 		static void FallingBlockDo(Entity *ent)
 		{

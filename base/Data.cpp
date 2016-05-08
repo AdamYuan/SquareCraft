@@ -20,7 +20,7 @@ using namespace std;
 #define BLOCK_SIZE			64
 #define MOVE_SPEED			0.2
 #define GRAVITY				0.4
-#define JUMP_HEIGHT			4.05
+#define JUMP_HEIGHT			3.05
 #define ENTITYLOAD_LIMIT	1024
 #define JUMP_FUNC(x)		((x)/5.0)
 //textures
