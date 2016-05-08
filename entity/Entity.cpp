@@ -11,7 +11,7 @@ class Entity
 		{
 
 		}*/
-		Entity(int id=0,double width=1,double height=1,double TW=1,double TH=1,double hitboxH=1,string name="",string textureName="")
+		Entity(int id=0,double width=1,double height=1,double TW=1,double TH=1,string name="",string textureName="")
 		{
 			Id=id,Width=width,Height=height,TextureWidth=TW,TextureHeight=TH,Name=name,TextureName=textureName;
 		}

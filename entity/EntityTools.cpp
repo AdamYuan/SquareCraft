@@ -25,9 +25,9 @@ class EntityTools
 			}
 			return false;
 		}
-		static bool EntityBlockCoincident(Entity *n1,int bx,int by)
+		static bool EntityBlockCoincident(Entity *n1,int bx,int by,bool allowNoHitboxBlock=false)
 		{
-			if(!GameMap::GetBlock(bx,by)->HaveHitBox)return false;
+			if(!GameMap::GetBlock(bx,by)->HaveHitBox && !allowNoHitboxBlock)return false;
 			Entity bn=Entity(0,1,1);
 			bn.X=bx,bn.Y=by;
 			return EntityCoincident(n1,&bn);

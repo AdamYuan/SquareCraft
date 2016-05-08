@@ -69,7 +69,7 @@ class GameMap
 		static void Init()
 		{
 			std::uninitialized_fill(&gmap[0][0],&gmap[MAP_WIDTH][MAP_HEIGHT],Blocks::air);
-			Player.X=1,Player.Y=70;
+			Player.X=MAP_WIDTH/2,Player.Y=70;
 		}
 		static void Quit()
 		{

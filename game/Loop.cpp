@@ -15,7 +15,7 @@ class GameLoop
 	public:
 		static void Loop()
 		{
-			int mx,my;
+			static int mx,my;
 			SDL_GetMouseState(&mx,&my);
 			GameMap::RefreshScreenSize();
 			GameMap::ShowBackground();
