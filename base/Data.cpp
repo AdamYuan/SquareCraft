@@ -21,7 +21,7 @@ using namespace std;
 #define MOVE_SPEED			0.2
 #define GRAVITY				0.4
 #define JUMP_HEIGHT			3.05
-#define ENTITYLOAD_LIMIT	1024
+#define ENTITYLOAD_LIMIT	512
 #define JUMP_FUNC(x)		((x)/5.0)
 //textures
 #define SELECTOR_TEXTURE	"select"

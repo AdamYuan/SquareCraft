@@ -17,8 +17,8 @@ using namespace std;
 class GameMap
 {
 	private:	
-		static Block *gmap[MAP_WIDTH+1][MAP_HEIGHT+1];
-		static vector<Entity> ents;
+		static Block *MapBlocks[MAP_WIDTH+1][MAP_HEIGHT+1];
+		static vector<Entity> MapEntitys;
 		static void drawBlock(int x,int y,Block* block)
 		{
 			int sx,sy;
@@ -68,18 +68,18 @@ class GameMap
 		//
 		static void Init()
 		{
-			std::uninitialized_fill(&gmap[0][0],&gmap[MAP_WIDTH][MAP_HEIGHT],Blocks::air);
+			std::uninitialized_fill(&MapBlocks[0][0],&MapBlocks[MAP_WIDTH][MAP_HEIGHT],Blocks::air);
 			Player.X=MAP_WIDTH/2,Player.Y=70;
 		}
 		static void Quit()
 		{
-			std::uninitialized_fill(&gmap[0][0],&gmap[MAP_WIDTH][MAP_HEIGHT],nullptr);
+			std::uninitialized_fill(&MapBlocks[0][0],&MapBlocks[MAP_WIDTH][MAP_HEIGHT],nullptr);
 		}
 		static bool CanChangeBlock(int x=SelectedX,int y=SelectedY)
 		{
 			if(x < 1 || x > MAP_WIDTH)return false;
 			if(y < 1 || y > MAP_HEIGHT)return false;
-			return //(!EntityTools::EntityBlockCoincident(&Player,x,y)) && 
+			return (!EntityTools::EntityBlockCoincident(&Player,x,y,true)) && 
 				(GetBlock(x , y) ->HaveHitBox ||
 				GetBlock(x-1,y) ->HaveHitBox||
 				GetBlock(x+1,y) ->HaveHitBox||
@@ -130,7 +130,7 @@ class GameMap
 		}
 		static void ShowMap()
 		{
-			//cout << ents.size() << endl;
+			//cout << MapEntitys.size() << endl;
 			double bxs,bys,bxe,bye;
 			GetMapXyFromScreenXy(0,0,&bxs,&bys);
 			GetMapXyFromScreenXy(ScreenW+BLOCK_SIZE+1,ScreenH+BLOCK_SIZE+1,&bxe,&bye);
@@ -139,7 +139,7 @@ class GameMap
 				{
 					BlocksUpdate::UpdateBlock(bx,by);
 					if(GetBlock(bx,by)!=Blocks::air)
-						drawBlock(bx,by,gmap[bx][by]);
+						drawBlock(bx,by,MapBlocks[bx][by]);
 				}
 			UpdateLoadedEntity();
 			for (int i = 0; i < LoadedEntitys.size();i++)
@@ -157,13 +157,13 @@ class GameMap
 		{
 			if(x < 1 || x > MAP_WIDTH)return;
 			if(y < 1 || y > MAP_HEIGHT)return;
-			gmap[x][y]=block;
+			MapBlocks[x][y]=block;
 		}
 		static Block *GetBlock(int x=SelectedX,int y=SelectedY)
 		{
 			if(x < 1 || x > MAP_WIDTH)return Blocks::air;
 			if(y < 1 || y > MAP_HEIGHT)return Blocks::air;
-			return gmap[x][y];
+			return MapBlocks[x][y];
 		}		
 		static void SelectBlock(int x,int y)
 		{
@@ -176,24 +176,20 @@ class GameMap
 		//
 		static Entity *SetEntity(Entity ent)
 		{
-			ents.push_back(ent);
-			return &ents[ents.size()-1];
+			MapEntitys.push_back(ent);
+			return &MapEntitys[MapEntitys.size()-1];
 		}	
 		static void UpdateLoadedEntity()
 		{
-			double x=Player.X,y=Player.Y,d_level=ENTITYLOAD_LIMIT;
-			vector<Entity*> vec;
-			d_level=1/d_level;
-			x=(int)(x*d_level)/d_level;
-			y=(int)(y*d_level)/d_level;
-			for(int i=0;i<ents.size();i++)
+			LoadedEntitys.clear();
+			double x=Player.X,d_level=ENTITYLOAD_LIMIT;
+			for(int i=0;i<MapEntitys.size();i++)
 			{
-				double ex=(int)(ents[i].X*d_level)/d_level;
-				double ey=(int)(ents[i].Y*d_level)/d_level;
-				if((ex<=x && x<ex+ents[i].Width) && (ey<=y && y<ey+ents[i].Height))
-					vec.push_back(&ents[i]);
+				double ex=(int)(MapEntitys[i].X*d_level)/d_level;
+				//double ey=(int)(MapEntitys[i].Y*d_level)/d_level;
+				if(x-d_level <= ex && ex <= x+d_level)
+					LoadedEntitys.push_back(&MapEntitys[i]);
 			}
-			LoadedEntitys=vec;
 		}
 		static vector<Entity*> GetEntitys(double d_level,double x,double y)
 		{
@@ -214,15 +210,15 @@ class GameMap
 		{
 			vector<Entity*>::iterator itp = find(LoadedEntitys.begin(),LoadedEntitys.end(),ent);
 			LoadedEntitys.erase(itp);
-			vector<Entity>::iterator it = find(ents.begin(),ents.end(),*ent);
-			ents.erase(it);
+			vector<Entity>::iterator it = find(MapEntitys.begin(),MapEntitys.end(),*ent);
+			MapEntitys.erase(it);
 		}
 };
 //
 //GameMap
 //
-Block *GameMap::gmap[MAP_WIDTH+1][MAP_HEIGHT+1];
-vector<Entity> GameMap::ents;
+Block *GameMap::MapBlocks[MAP_WIDTH+1][MAP_HEIGHT+1];
+vector<Entity> GameMap::MapEntitys;
 vector<Entity*> GameMap::LoadedEntitys;
 int GameMap::SelectedX=1,GameMap::SelectedY=1,GameMap::ScreenW=100,GameMap::ScreenH=100;
 double GameMap::DestroyBlockState=0;

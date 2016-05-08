@@ -18,9 +18,9 @@ class EntityTools
 			for(int i=1;i<=4;i++)
 			{
 				if(n1x[i]==n2x[5-i] || n1y[i]==n2y[5-i])return false;
-				if(n2x[1]<=n1x[i] && n1x[i]<n2x[3] && n2y[1]<=n1y[i] && n1y[i]<n2y[2])
+				if(n2x[1]<=n1x[i] && n1x[i]<n2x[3] && n2y[1]<=n1y[i] && n1y[i]<=n2y[2])
 					return true;
-				if(n1x[1]<=n2x[i] && n2x[i]<n1x[3] && n1y[1]<=n2y[i] && n2y[i]<n1y[2])
+				if(n1x[1]<=n2x[i] && n2x[i]<n1x[3] && n1y[1]<=n2y[i] && n2y[i]<=n1y[2])
 					return true;
 			}
 			return false;
@@ -96,19 +96,19 @@ class EntityTools
 			}
 			return return_v;
 		}
-		static bool EntityWillHit(Entity *ent,string direct,double dist)
+		static bool EntityWillHit(Entity *ent,string direct,double dist,bool hitEntity=true)
 		{
 			bool rv=false;
 			if(direct==_X)
 			{
 				ent->X+=dist;
-				rv=EntityHitTest(ent,_X,dist);
+				rv=EntityHitTest(ent,_X,dist,hitEntity);
 				ent->X-=dist;
 			}
 			else if(direct==_Y)
 			{
 				ent->Y+=dist;
-				rv=EntityHitTest(ent,_Y,dist);
+				rv=EntityHitTest(ent,_Y,dist,hitEntity);
 				ent->Y-=dist;
 			}
 			return rv;
