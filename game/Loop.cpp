@@ -26,6 +26,7 @@ class GameLoop
 			GameMap::GetSelectedXyFromMouseXy(mx,my);
 			GameMap::SelectBlock(GameMap::SelectedX,GameMap::SelectedY);
 			GameMap::ShowGui();
+			//cout << GameMap::EntityTools::EntityBlockCoincident(&GameMap::Player,GameMap::SelectedX,GameMap::SelectedY,true) << endl;
 			Window::Present();
 		}
 };

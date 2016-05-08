@@ -5,25 +5,10 @@ class EntityTools
 	public:
 		static bool EntityCoincident(Entity *n1,Entity *n2)
 		{
-			double n1x[5],n1y[5],n2x[5],n2y[5];
-			n1x[1]=n1->X,n1y[1]=n1->Y;
-			n1x[2]=n1->X,n1y[2]=n1->Y+n1->Height;
-			n1x[3]=n1->X+n1->Width,n1y[3]=n1->Y;
-			n1x[4]=n1->X+n1->Width,n1y[4]=n1->Y+n1->Height;
-			////////////////////////////
-			n2x[1]=n2->X,n2y[1]=n2->Y;
-			n2x[2]=n2->X,n2y[2]=n2->Y+n2->Height;
-			n2x[3]=n2->X+n2->Width,n2y[3]=n2->Y;
-			n2x[4]=n2->X+n2->Width,n2y[4]=n2->Y+n2->Height;
-			for(int i=1;i<=4;i++)
-			{
-				if(n1x[i]==n2x[5-i] || n1y[i]==n2y[5-i])return false;
-				if(n2x[1]<=n1x[i] && n1x[i]<n2x[3] && n2y[1]<=n1y[i] && n1y[i]<=n2y[2])
-					return true;
-				if(n1x[1]<=n2x[i] && n2x[i]<n1x[3] && n1y[1]<=n2y[i] && n2y[i]<=n1y[2])
-					return true;
-			}
-			return false;
+			return (n1->X + n1->Width  > n2->X &&
+					n2->X + n2->Width  > n1->X &&
+					n1->Y + n1->Height > n2->Y &&
+					n2->Y + n2->Height > n1->Y);
 		}
 		static bool EntityBlockCoincident(Entity *n1,int bx,int by,bool allowNoHitboxBlock=false)
 		{

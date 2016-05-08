@@ -26,10 +26,8 @@ int main()
 {
 	Window::Init(1080,720,"SquareCraft");
 	GameMap::Init();
-	//SDL_ShowCursor(0);
 	Terrain::SetSeed(11);
 	Terrain::Generate();
-	cout << PROGRAM_PATH << endl;
 	while(1)
 	{
 		GameLoop::Loop();

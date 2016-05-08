@@ -1,3 +1,6 @@
+//------------------------------------------------------------------------------------------------//
+//copied from http://twinklebeardev.blogspot.com/2012/09/lesson-7-taking-advantage-of-classes.html//
+//------------------------------------------------------------------------------------------------//
 #ifndef WINDOW_H
 #define WINDOW_H
 #include<iostream>
