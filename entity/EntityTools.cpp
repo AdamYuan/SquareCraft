@@ -30,22 +30,24 @@ class EntityTools
 			}
 			return vec;
 		}
-		static bool EntityHitTest(Entity *ent,string direct,double dist,bool hitEntity=true)
+		static bool EntityHitTest(Entity *ent,short direct,bool hitEntity=true)
 		{
 			vector<Entity*> vec = GetCoincidentEntitys(ent);
 			bool return_v=false;
-			if(direct == _Y)
+			if(direct == _UP || direct == _DOWN)
 			{
-				double yDirect=dist;
+				double yDirect=direct==_UP?1:-1;
 				for(int X=ent->X;X<=(int)(ent->X+ent->Width+0.999);X++)
-					if(EntityTools::EntityBlockCoincident(ent,X,yDirect<0 ? ent->Y+yDirect : ent->Y+ent->Height+yDirect))
+					if(EntityTools::EntityBlockCoincident(ent,X,yDirect<0 ? (int)ent->Y : (int)(ent->Y+ent->Height)))
 					{
-						ent->Y=(yDirect<0 ? (int)(ent->Y+yDirect) : (int)(ent->Y+yDirect+ent->Height)-(ent->Height-1))-(int)(yDirect/fabs(yDirect));
+						ent->Y=(yDirect<0 ? (int)ent->Y+1 : (int)(ent->Y+ent->Height)-ent->Height);
 						return_v=true;
 						break;
 					}	
 				//vec = yDirect<0 ? GetEntitys(1,ent->X,ent->Y+yDirect) : GetEntitys(1,ent->X,ent->Y+ent->Height+yDirect);
 				if(hitEntity)
+				{
+					vec=GetCoincidentEntitys(ent);
 					for(int i=0;i<vec.size();i++)
 					{
 						double Y = yDirect<0 ? vec[i]->Y+vec[i]->Height : vec[i]->Y-ent->Height;
@@ -56,14 +58,15 @@ class EntityTools
 							return_v=true;
 						}
 					}
+				}
 			}
-			else if(direct==_X)
+			else if(direct==_LEFT || direct==_RIGHT)
 			{
-				double xDirect=dist;
+				double xDirect=direct==_LEFT?-1:1;
 				for(int Y=ent->Y;Y<=(int)(ent->Y+ent->Height+0.999);Y++)
-					if(EntityTools::EntityBlockCoincident(ent,xDirect<0 ? (int)(ent->X+xDirect) : (int)(ent->X+xDirect+ent->Width),Y))
+					if(EntityTools::EntityBlockCoincident(ent,xDirect<0 ? (int)ent->X : (int)(ent->X+ent->Width),Y))
 					{
-						ent->X=(xDirect<0 ? (int)(ent->X+xDirect) : (int)(ent->X+xDirect+ent->Width)-(ent->Width-1))-(int)(xDirect/fabs(xDirect));
+						ent->X=(xDirect<0 ? (int)ent->X+1 : (int)(ent->X+ent->Width)-ent->Width);
 						return_v=true;
 						break;
 					}
@@ -81,20 +84,20 @@ class EntityTools
 			}
 			return return_v;
 		}
-		static bool EntityWillHit(Entity *ent,string direct,double dist,bool hitEntity=true)
+		static bool EntityWillHit(Entity *ent,short direct,double dist,bool hitEntity=true)
 		{
 			bool rv=false;
-			if(direct==_X)
+			if(direct==_LEFT || direct==_RIGHT)
 			{
-				ent->X+=dist;
-				rv=EntityHitTest(ent,_X,dist,hitEntity);
-				ent->X-=dist;
+				ent->X+=dist*(direct==_LEFT?-1:1);
+				rv=EntityHitTest(ent,direct,hitEntity);
+				ent->X-=dist*(direct==_LEFT?-1:1);
 			}
-			else if(direct==_Y)
+			else if(direct==_UP || direct==_DOWN)
 			{
-				ent->Y+=dist;
-				rv=EntityHitTest(ent,_Y,dist,hitEntity);
-				ent->Y-=dist;
+				ent->Y+=dist*(direct==_DOWN?-1:1);
+				rv=EntityHitTest(ent,direct,hitEntity);
+				ent->Y-=dist*(direct==_DOWN?-1:1);
 			}
 			return rv;
 		}	

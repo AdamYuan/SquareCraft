@@ -12,8 +12,10 @@ using namespace std;
 #define SPACE_KEY			SDLK_SPACE
 //datas
 #define PROGRAM_PATH		(GetProgramPath())
-#define _X					"X"
-#define _Y					"Y"
+#define _LEFT				-1
+#define _RIGHT				0
+#define _UP					1
+#define _DOWN				2
 #define MAP_WIDTH			131072
 #define MAP_HEIGHT			128
 #define TERRAIN_BASEHEIGHT	70

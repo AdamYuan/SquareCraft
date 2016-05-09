@@ -11,7 +11,7 @@ class EntitysAi
 		{
 			ent->Y -= GRAVITY;
 			//bool hitEntity=(ent->TextureName != Entitys::player.TextureName);
-			GameMap::EntityTools::EntityHitTest(ent,_Y,-GRAVITY/*,hitEntity*/);
+			GameMap::EntityTools::EntityHitTest(ent,_DOWN/*,hitEntity*/);
 		}
 		static void FallingBlockDo(Entity *ent)
 		{
@@ -32,7 +32,7 @@ class EntitysAi
 					jump_state+=JUMP_FUNC(JUMP_HEIGHT-swp);
 				}
 				ent->Y+=(jump_state=fabs(jump_state));
-				if(GameMap::EntityTools::EntityHitTest(ent,_Y,0.1))jump_state=0;
+				if(GameMap::EntityTools::EntityHitTest(ent,_UP))jump_state=0;
 			}
 			else 
 			{
@@ -60,7 +60,7 @@ class EntitysAi
 		}
 		static void PlayerJump(Entity *ent=&GameMap::Player)
 		{
-			if(!GameMap::EntityTools::EntityWillHit(ent,_Y,-0.01) || GameMap::EntityTools::EntityWillHit(ent,_Y,0.01))
+			if(!GameMap::EntityTools::EntityWillHit(ent,_DOWN,0.01) || GameMap::EntityTools::EntityWillHit(ent,_UP,0.01))
 				return;
 			if(!jumping)
 			{
