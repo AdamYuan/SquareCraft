@@ -49,12 +49,12 @@ class EntitysAi
 	public:
 		static void EntityDo(Entity *ent)
 		{
-			if(*ent==Entitys::player)
+			if(ent->Id==Entitys::player.Id)
 			{
 				PlayerDo(ent);
 				return;
 			}
-			if(*ent==Entitys::fallingSand)
+			if(ent->Id==Entitys::fallingSand.Id)
 				FallingBlockDo(ent);
 			EntityFall(ent);
 		}
