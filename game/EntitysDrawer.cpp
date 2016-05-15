@@ -5,9 +5,9 @@ class EntitysDrawer
 	public:
 		static void DrawPlayer(Entity* ent)
 		{
-			static int rotate_angle=0,direct=2;
+			static int rotate_angle=0,direct=4,max_rotate_angle=40;
 			rotate_angle+=direct;
-			if(rotate_angle>=30 || rotate_angle<=-30)direct=-direct;
+			if(rotate_angle>=max_rotate_angle || rotate_angle<=-max_rotate_angle)direct=-direct;
 			if(!ent->Walking)rotate_angle=0;
 			int sx,sy;
 			GetScreenXyFromMapXy(ent->X+ent->TextureX,ent->Y+ent->TextureHeight-1+ent->TextureY,&sx,&sy);

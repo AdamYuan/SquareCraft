@@ -97,15 +97,13 @@ class GameEvents
 			{
 				GameMap::Player.X += MOVE_SPEED;
 				GameMap::Player.Facing = _RIGHT;
-				GameMap::Player.Walking=true;
-				GameMap::EntityTools::EntityHitTest(&GameMap::Player,_RIGHT);
+				GameMap::Player.Walking=!GameMap::EntityTools::EntityHitTest(&GameMap::Player,_RIGHT);
 			}
 			if(left_down)
 			{
 				GameMap::Player.X -= MOVE_SPEED;
 				GameMap::Player.Facing = _LEFT;
-				GameMap::Player.Walking=true;
-				GameMap::EntityTools::EntityHitTest(&GameMap::Player,_LEFT);
+				GameMap::Player.Walking=!GameMap::EntityTools::EntityHitTest(&GameMap::Player,_LEFT);
 			}
 			if(space_down)
 				GameMap::EntitysAi::PlayerJump();
