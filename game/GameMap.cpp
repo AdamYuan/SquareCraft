@@ -10,6 +10,7 @@
 #include"../base/Window.cpp"
 #include"../base/Texture.cpp"
 #include"../base/Data.cpp" 
+#include"../base/Tools.cpp"
 #include"../block/Block.cpp"
 #include"../block/Blocks.cpp"
 #include"../entity/Entitys.cpp"
@@ -56,8 +57,9 @@ class GameMap
 			}
 		}
 	public:
-#include"../entity/EntitysAi.cpp"
-#include"../entity/EntityTools.cpp"
+#include"EntitysAi.cpp"
+#include"EntitysDrawer.cpp"
+#include"EntityTools.cpp"
 #include"../block/BlocksUpdate.cpp"
 		static int SelectedX,SelectedY,ScreenW,ScreenH;
 		static double DestroyBlockState;
@@ -81,10 +83,10 @@ class GameMap
 			if(y < 1 || y > MAP_HEIGHT)return false;
 			return (!EntityTools::EntityBlockCoincident(&Player,x,y,true)) && 
 				(GetBlock(x , y) ->HaveHitBox ||
-				GetBlock(x-1,y) ->HaveHitBox||
-				GetBlock(x+1,y) ->HaveHitBox||
-				GetBlock(x,y-1) ->HaveHitBox||
-				GetBlock(x,y+1) ->HaveHitBox); 
+				 GetBlock(x-1,y) ->HaveHitBox||
+				 GetBlock(x+1,y) ->HaveHitBox||
+				 GetBlock(x,y-1) ->HaveHitBox||
+				 GetBlock(x,y+1) ->HaveHitBox); 
 		}
 		static void RefreshScreenSize()
 		{
@@ -148,7 +150,7 @@ class GameMap
 				drawEntity(LoadedEntitys[i]);
 			}
 			EntitysAi::EntityDo(&Player);
-			drawEntity(&Player);
+			//drawEntity(&Player);
 		}
 		//
 		///////////////BLOCK

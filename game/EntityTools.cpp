@@ -100,5 +100,5 @@ class EntityTools
 				ent->Y-=dist*(direct==_DOWN?-1:1);
 			}
 			return rv;
-		}	
+		}
 };

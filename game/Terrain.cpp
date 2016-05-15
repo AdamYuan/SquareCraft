@@ -5,7 +5,7 @@
 #include"../base/PerlinNoise.cpp"
 #include"../block/Blocks.cpp"
 #include"../game/GameMap.cpp"
-#include"../base/Random.cpp"
+#include"../base/Tools.cpp"
 #include"../biome/Biomes.cpp"
 using namespace std;
 class Terrain

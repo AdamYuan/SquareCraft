@@ -1,5 +1,6 @@
 #pragma once
 #include<iostream>
+#include"../base/Tools.cpp"
 using namespace std;
 class Biome
 {

@@ -20,6 +20,7 @@ class GameLoop
 			GameMap::RefreshScreenSize();
 			GameMap::ShowBackground();
 			GameMap::ShowMap();
+			GameMap::EntitysDrawer::DrawPlayer(&GameMap::Player);
 			while(SDL_PollEvent(&evt))
 				GameEvents::ReciveEvent(evt);
 			GameEvents::AfterReciveEvent();

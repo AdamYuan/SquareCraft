@@ -1,9 +1,12 @@
 #pragma once
 #include<iostream>
+#include"../base/Data.cpp"
 class Entity
 {
 	public:
 		int Id=1,Health=10,HealthMax=10;
+		short Facing=_STOP;
+		bool Walking=false;
 		double X=1,Y=1,TextureX=0,TextureY=0,TextureWidth=1,TextureHeight=1,Width=1,Height=1;
 		double Data;
 		string Name,TextureName;

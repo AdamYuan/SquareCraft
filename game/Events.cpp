@@ -82,11 +82,12 @@ class GameEvents
 		}
 		static void AfterReciveEvent()
 		{
+			GameMap::Player.Walking=false;
 			/*if(down_down)
-			{
-				GameMap::Player.Y -= MOVE_SPEED;
-				GameMap::EntityHitTest(&GameMap::Player,_Y,-MOVE_SPEED);
-			}*/
+			  {
+			  GameMap::Player.Y -= MOVE_SPEED;
+			  GameMap::EntityHitTest(&GameMap::Player,_Y,-MOVE_SPEED);
+			  }*/
 			if(up_down)
 			{
 				GameMap::Player.Y += MOVE_SPEED+GRAVITY;
@@ -95,11 +96,15 @@ class GameEvents
 			if(right_down)
 			{
 				GameMap::Player.X += MOVE_SPEED;
+				GameMap::Player.Facing = _RIGHT;
+				GameMap::Player.Walking=true;
 				GameMap::EntityTools::EntityHitTest(&GameMap::Player,_RIGHT);
 			}
 			if(left_down)
 			{
 				GameMap::Player.X -= MOVE_SPEED;
+				GameMap::Player.Facing = _LEFT;
+				GameMap::Player.Walking=true;
 				GameMap::EntityTools::EntityHitTest(&GameMap::Player,_LEFT);
 			}
 			if(space_down)

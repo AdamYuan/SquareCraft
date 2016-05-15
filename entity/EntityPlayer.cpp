@@ -1,5 +1,7 @@
 #pragma once
 #include"Entity.cpp"
+#include"../base/Window.cpp"
+#include"../base/Texture.cpp"
 class EntityPlayer : public Entity
 {
 	public:

@@ -4,7 +4,6 @@
 #include"BiomeDesert.cpp"
 #include"BiomeGrassLand.cpp"
 #include"BiomeMForest.cpp"
-#include"../base/Random.cpp"
 #include<iostream>
 class Biomes
 {

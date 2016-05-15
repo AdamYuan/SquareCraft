@@ -16,6 +16,7 @@ using namespace std;
 #define _RIGHT				0
 #define _UP					1
 #define _DOWN				2
+#define _STOP				3
 #define MAP_WIDTH			131072
 #define MAP_HEIGHT			128
 #define TERRAIN_BASEHEIGHT	70
