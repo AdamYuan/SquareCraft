@@ -33,4 +33,20 @@ class EntitysDrawer
 			Window::Draw(leg,legx-2,legy,legwidth,legheight,NULL,rotate_angle,0,-legheight/2);
 			Window::Draw(arm,armx+2,army,armwidth,armheight,NULL,rotate_angle,0,-armheight/2);
 		}
+		static void DrawEntity(Entity *ent)
+		{
+			if(ent->Id==Entitys::player.Id)
+			{
+				DrawPlayer(ent);
+				return;
+			}
+			int sx,sy;
+			GetScreenXyFromMapXy(ent->X+ent->TextureX,ent->Y+ent->TextureHeight-1+ent->TextureY,&sx,&sy);
+			if(sx <= -BLOCK_SIZE-ent->TextureWidth*BLOCK_SIZE || sx >= ScreenW+ent->TextureWidth*BLOCK_SIZE)
+				return;
+			if(sy <= -BLOCK_SIZE-ent->TextureHeight*BLOCK_SIZE || sy >= ScreenH+ent->TextureHeight*BLOCK_SIZE)
+				return;
+			SDL_Texture *tex=TextureManager::GetEntityTexture(ent);
+			Window::Draw(tex,sx,sy,ent->TextureWidth*BLOCK_SIZE+0.5,ent->TextureHeight*BLOCK_SIZE+0.5);
+		}
 };

@@ -82,28 +82,28 @@ class GameEvents
 		}
 		static void AfterReciveEvent()
 		{
-			GameMap::Player.Walking=false;
+			GameMap::Player->Walking=false;
 			/*if(down_down)
 			  {
-			  GameMap::Player.Y -= MOVE_SPEED;
-			  GameMap::EntityHitTest(&GameMap::Player,_Y,-MOVE_SPEED);
+			  GameMap::Player->Y -= MOVE_SPEED;
+			  GameMap::EntityHitTest(GameMap::Player,_Y,-MOVE_SPEED);
 			  }*/
 			if(up_down)
 			{
-				GameMap::Player.Y += MOVE_SPEED+GRAVITY;
-				GameMap::EntityTools::EntityHitTest(&GameMap::Player,_UP);
+				GameMap::Player->Y += MOVE_SPEED+GRAVITY;
+				GameMap::EntityTools::EntityHitTest(GameMap::Player,_UP);
 			}
 			if(right_down)
 			{
-				GameMap::Player.X += MOVE_SPEED;
-				GameMap::Player.Facing = _RIGHT;
-				GameMap::Player.Walking=!GameMap::EntityTools::EntityHitTest(&GameMap::Player,_RIGHT);
+				GameMap::Player->X += MOVE_SPEED;
+				GameMap::Player->Facing = _RIGHT;
+				GameMap::Player->Walking=!GameMap::EntityTools::EntityHitTest(GameMap::Player,_RIGHT);
 			}
 			if(left_down)
 			{
-				GameMap::Player.X -= MOVE_SPEED;
-				GameMap::Player.Facing = _LEFT;
-				GameMap::Player.Walking=!GameMap::EntityTools::EntityHitTest(&GameMap::Player,_LEFT);
+				GameMap::Player->X -= MOVE_SPEED;
+				GameMap::Player->Facing = _LEFT;
+				GameMap::Player->Walking=!GameMap::EntityTools::EntityHitTest(GameMap::Player,_LEFT);
 			}
 			if(space_down)
 				GameMap::EntitysAi::PlayerJump();

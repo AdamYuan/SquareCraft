@@ -58,7 +58,7 @@ class EntitysAi
 				FallingBlockDo(ent);
 			EntityFall(ent);
 		}
-		static void PlayerJump(Entity *ent=&GameMap::Player)
+		static void PlayerJump(Entity *ent=GameMap::Player)
 		{
 			if(!GameMap::EntityTools::EntityWillHit(ent,_DOWN,0.01) || GameMap::EntityTools::EntityWillHit(ent,_UP,0.01))
 				return;

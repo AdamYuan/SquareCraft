@@ -34,25 +34,14 @@ class GameMap
 			SDL_Texture *des_tex=TextureManager::GetGameTexture(DESTROY_TEXTURE(DestroyBlockState));
 			Window::Draw(des_tex,sx,sy,BLOCK_SIZE,BLOCK_SIZE);
 		}
-		static void drawEntity(Entity *ent)
-		{
-			int sx,sy;
-			GetScreenXyFromMapXy(ent->X+ent->TextureX,ent->Y+ent->TextureHeight-1+ent->TextureY,&sx,&sy);
-			if(sx <= -BLOCK_SIZE-ent->TextureWidth*BLOCK_SIZE || sx >= ScreenW+ent->TextureWidth*BLOCK_SIZE)
-				return;
-			if(sy <= -BLOCK_SIZE-ent->TextureHeight*BLOCK_SIZE || sy >= ScreenH+ent->TextureHeight*BLOCK_SIZE)
-				return;
-			SDL_Texture *tex=TextureManager::GetEntityTexture(ent);
-			Window::Draw(tex,sx,sy,ent->TextureWidth*BLOCK_SIZE+0.5,ent->TextureHeight*BLOCK_SIZE+0.5);
-		}
 		static void drawPlayerHealth()
 		{
 			SDL_Texture *health=TextureManager::GetGameTexture(HEART_TEXTURE);
 			SDL_Texture *health_bg=TextureManager::GetGameTexture(HEART_BG_TEXTURE);
-			for(int i=0;i<Player.HealthMax;i++)
+			for(int i=0;i<Player->HealthMax;i++)
 			{
 				Window::Draw(health_bg,i*16,0,16,16);
-				if(i<Player.Health)
+				if(i<Player->Health)
 					Window::Draw(health,i*16,0,16,16);
 			}
 		}
@@ -64,14 +53,16 @@ class GameMap
 		static int SelectedX,SelectedY,ScreenW,ScreenH;
 		static double DestroyBlockState;
 		static vector<Entity*> LoadedEntitys;
-		static EntityPlayer Player;
+		static Entity* Player;
 		//
 		///////////////BASE
 		//
 		static void Init()
 		{
+			MapEntitys.reserve(ENTITY_MAX*(sizeof(Entity)));
 			std::uninitialized_fill(&MapBlocks[0][0],&MapBlocks[MAP_WIDTH][MAP_HEIGHT],Blocks::air);
-			Player.X=MAP_WIDTH/2,Player.Y=70;
+			Player=SetEntity(EntityPlayer());
+			Player->X=MAP_WIDTH/2,Player->Y=70;
 		}
 		static void Quit()
 		{
@@ -81,7 +72,7 @@ class GameMap
 		{
 			if(x < 1 || x > MAP_WIDTH)return false;
 			if(y < 1 || y > MAP_HEIGHT)return false;
-			return (!EntityTools::EntityBlockCoincident(&Player,x,y,true)) && 
+			return (!EntityTools::EntityBlockCoincident(Player,x,y,true)) && 
 				(GetBlock(x , y) ->HaveHitBox ||
 				 GetBlock(x-1,y) ->HaveHitBox||
 				 GetBlock(x+1,y) ->HaveHitBox||
@@ -113,8 +104,8 @@ class GameMap
 		{
 			int cx=ScreenW/2-BLOCK_SIZE/2;
 			int cy=ScreenH/2-BLOCK_SIZE/2;
-			sx+=(int)((Player.X-1)*BLOCK_SIZE)-cx;
-			sy+=(int)(((MAP_HEIGHT-Player.Y+1)-1)*BLOCK_SIZE)-cy;
+			sx+=(int)((Player->X-1)*BLOCK_SIZE)-cx;
+			sy+=(int)(((MAP_HEIGHT-Player->Y+1)-1)*BLOCK_SIZE)-cy;
 			(*bx)=(sx/BLOCK_SIZE)+1;
 			(*by)=MAP_HEIGHT-(sy/BLOCK_SIZE);
 			if((*bx)<1)(*bx)=1;
@@ -127,11 +118,12 @@ class GameMap
 			by=MAP_HEIGHT-by+1;
 			double cx=ScreenW/2-BLOCK_SIZE/2;
 			double cy=ScreenH/2-BLOCK_SIZE/2;
-			(*sx)=cx-(Player.X-bx)*BLOCK_SIZE;
-			(*sy)=cy-(MAP_HEIGHT-Player.Y+1-by)*BLOCK_SIZE+0.5;
+			(*sx)=cx-(Player->X-bx)*BLOCK_SIZE;
+			(*sy)=cy-(MAP_HEIGHT-Player->Y+1-by)*BLOCK_SIZE+0.5;
 		}
 		static void ShowMap()
 		{
+			cout << Player->Id << endl;
 			//cout << MapEntitys.size() << endl;
 			double bxs,bys,bxe,bye;
 			GetMapXyFromScreenXy(0,0,&bxs,&bys);
@@ -144,13 +136,11 @@ class GameMap
 						drawBlock(bx,by,MapBlocks[bx][by]);
 				}
 			UpdateLoadedEntity();
-			for (int i = 0; i < LoadedEntitys.size();i++)
+			for (int i = LoadedEntitys.size()-1; i >= 0;i--)
 			{
 				EntitysAi::EntityDo(LoadedEntitys[i]);
-				drawEntity(LoadedEntitys[i]);
+				EntitysDrawer::DrawEntity(LoadedEntitys[i]);
 			}
-			EntitysAi::EntityDo(&Player);
-			//drawEntity(&Player);
 		}
 		//
 		///////////////BLOCK
@@ -184,7 +174,7 @@ class GameMap
 		static void UpdateLoadedEntity()
 		{
 			LoadedEntitys.clear();
-			double x=Player.X,d_level=ENTITYLOAD_LIMIT;
+			double x=Player->X,d_level=ENTITYLOAD_LIMIT;
 			for(int i=0;i<MapEntitys.size();i++)
 			{
 				double ex=(int)(MapEntitys[i].X*d_level)/d_level;
@@ -224,7 +214,7 @@ vector<Entity> GameMap::MapEntitys;
 vector<Entity*> GameMap::LoadedEntitys;
 int GameMap::SelectedX=1,GameMap::SelectedY=1,GameMap::ScreenW=100,GameMap::ScreenH=100;
 double GameMap::DestroyBlockState=0;
-EntityPlayer GameMap::Player = EntityPlayer();
+Entity *GameMap::Player = new EntityPlayer();
 //
 //EntitysAi
 //

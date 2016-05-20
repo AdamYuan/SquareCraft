@@ -20,14 +20,12 @@ class GameLoop
 			GameMap::RefreshScreenSize();
 			GameMap::ShowBackground();
 			GameMap::ShowMap();
-			GameMap::EntitysDrawer::DrawPlayer(&GameMap::Player);
 			while(SDL_PollEvent(&evt))
 				GameEvents::ReciveEvent(evt);
 			GameEvents::AfterReciveEvent();
 			GameMap::GetSelectedXyFromMouseXy(mx,my);
 			GameMap::SelectBlock(GameMap::SelectedX,GameMap::SelectedY);
 			GameMap::ShowGui();
-			//cout << GameMap::EntityTools::EntityBlockCoincident(&GameMap::Player,GameMap::SelectedX,GameMap::SelectedY,true) << endl;
 			Window::Present();
 		}
 };
