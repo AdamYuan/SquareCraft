@@ -123,8 +123,6 @@ class GameMap
 		}
 		static void ShowMap()
 		{
-			cout << Player->Id << endl;
-			//cout << MapEntitys.size() << endl;
 			double bxs,bys,bxe,bye;
 			GetMapXyFromScreenXy(0,0,&bxs,&bys);
 			GetMapXyFromScreenXy(ScreenW+BLOCK_SIZE+1,ScreenH+BLOCK_SIZE+1,&bxe,&bye);
