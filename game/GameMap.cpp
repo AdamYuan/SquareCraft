@@ -213,9 +213,3 @@ vector<Entity*> GameMap::LoadedEntitys;
 int GameMap::SelectedX=1,GameMap::SelectedY=1,GameMap::ScreenW=100,GameMap::ScreenH=100;
 double GameMap::DestroyBlockState=0;
 Entity *GameMap::Player = new EntityPlayer();
-//
-//EntitysAi
-//
-bool GameMap::EntitysAi::jumping = false;
-double GameMap::EntitysAi::jump_state=0;
-int GameMap::EntitysAi::jump_delay=0;

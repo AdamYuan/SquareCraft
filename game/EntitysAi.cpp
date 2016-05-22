@@ -4,9 +4,6 @@
 class EntitysAi
 {
 	private:
-		static double jump_state;
-		static bool jumping;
-		static int jump_delay;
 		static void EntityFall(Entity *ent)
 		{
 			ent->Y -= GRAVITY;
@@ -21,27 +18,27 @@ class EntitysAi
 				GameMap::RemoveEntity(ent);
 			}
 		}
-		static void PlayerDo(Entity *ent)
+		static void Jumping(Entity *ent)
 		{
-			if(jump_state != 0 && jump_state < JUMP_HEIGHT-0.05)
+			if(ent->Jump_state != 0 && ent->Jump_state < ent->Jump_height-0.05)
 			{
-				double swp = jump_state;
+				double swp = ent->Jump_state;
 				if(swp>0)
 				{
 					ent->Y-=swp;
-					jump_state+=JUMP_FUNC(JUMP_HEIGHT-swp);
+					ent->Jump_state+=JUMP_FUNC(ent->Jump_height-swp);
 				}
-				ent->Y+=(jump_state=fabs(jump_state));
-				if(GameMap::EntityTools::EntityHitTest(ent,_UP))jump_state=0;
+				ent->Y+=(ent->Jump_state=fabs(ent->Jump_state));
+				if(GameMap::EntityTools::EntityHitTest(ent,_UP))ent->Jump_state=0;
 			}
 			else 
 			{
-				if(++jump_delay >= 10)
+				if(++ent->Jump_delay >= 10)
 				{
-					jump_delay=0;
-					jumping=false;
+					ent->Jump_delay=0;
+					ent->Jumping=false;
 				}
-				jump_state=0;
+				ent->Jump_state=0;
 				EntityFall(ent);
 			}
 			return;
@@ -49,23 +46,23 @@ class EntitysAi
 	public:
 		static void EntityDo(Entity *ent)
 		{
-			if(ent->Id==Entitys::player.Id)
+			if(ent->Jumping)
 			{
-				PlayerDo(ent);
+				Jumping(ent);
 				return;
 			}
 			if(ent->Id==Entitys::fallingSand.Id)
 				FallingBlockDo(ent);
 			EntityFall(ent);
 		}
-		static void PlayerJump(Entity *ent=GameMap::Player)
+		static void EntityJump(Entity *ent)
 		{
 			if(!GameMap::EntityTools::EntityWillHit(ent,_DOWN,0.01) || GameMap::EntityTools::EntityWillHit(ent,_UP,0.01))
 				return;
-			if(!jumping)
+			if(!ent->Jumping)
 			{
-				jump_state=-JUMP_FUNC(JUMP_HEIGHT);
-				jumping=true;
+				ent->Jump_state=-JUMP_FUNC(ent->Jump_height);
+				ent->Jumping=true;
 			}
 		}
 };

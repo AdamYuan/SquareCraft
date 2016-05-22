@@ -6,8 +6,8 @@
 using namespace std;
 class BiomeDesert : public Biome
 {
-	public:
-		void FillX(int x,double height,int water_height,double first,double last,int width,int index)
+public:
+	void FillX(int x,double height,int water_height,double first,double last,int width,int index)
 		{
 			BiomeTools::ChangeHeight(&height,1.7,first,last,width,index);
 			height=(int)height;

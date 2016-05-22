@@ -106,7 +106,7 @@ class GameEvents
 				GameMap::Player->Walking=!GameMap::EntityTools::EntityHitTest(GameMap::Player,_LEFT);
 			}
 			if(space_down)
-				GameMap::EntitysAi::PlayerJump();
+				GameMap::EntitysAi::EntityJump(GameMap::Player);
 			//
 			if(mouse_state == SDL_BUTTON_LEFT)
 			{
