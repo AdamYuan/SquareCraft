@@ -91,13 +91,13 @@ class EntityTools
 			{
 				ent->X+=dist*(direct==_LEFT?-1:1);
 				rv=EntityHitTest(ent,direct,hitEntity);
-				ent->X-=dist*(direct==_LEFT?-1:1);
+				if(!rv)ent->X-=dist*(direct==_LEFT?-1:1);
 			}
 			else if(direct==_UP || direct==_DOWN)
 			{
 				ent->Y+=dist*(direct==_DOWN?-1:1);
 				rv=EntityHitTest(ent,direct,hitEntity);
-				ent->Y-=dist*(direct==_DOWN?-1:1);
+				if(!rv)ent->Y-=dist*(direct==_DOWN?-1:1);
 			}
 			return rv;
 		}

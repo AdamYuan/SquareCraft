@@ -23,7 +23,7 @@
 #include"entity/Entitys.cpp"
 using namespace std;
 int main()
-{
+{	
 	Window::Quit();
 	Window::Init(1080,720,"SquareCraft");
 	GameMap::Init();
