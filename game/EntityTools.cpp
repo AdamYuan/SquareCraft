@@ -87,17 +87,20 @@ class EntityTools
 		static bool EntityWillHit(Entity *ent,short direct,double dist,bool hitEntity=true)
 		{
 			bool rv=false;
+			int tmp;
 			if(direct==_LEFT || direct==_RIGHT)
 			{
+				tmp=ent->X;
 				ent->X+=dist*(direct==_LEFT?-1:1);
 				rv=EntityHitTest(ent,direct,hitEntity);
-				if(!rv)ent->X-=dist*(direct==_LEFT?-1:1);
+				ent->X=tmp;
 			}
 			else if(direct==_UP || direct==_DOWN)
 			{
+				tmp=ent->Y;
 				ent->Y+=dist*(direct==_DOWN?-1:1);
 				rv=EntityHitTest(ent,direct,hitEntity);
-				if(!rv)ent->Y-=dist*(direct==_DOWN?-1:1);
+				ent->Y=tmp;
 			}
 			return rv;
 		}
