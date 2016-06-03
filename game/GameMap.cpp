@@ -173,7 +173,7 @@ class GameMap
 		{
 			LoadedEntitys.clear();
 			double x=Player->X,d_level=ENTITYLOAD_LIMIT;
-			for(int i=0;i<MapEntitys.size();i++)
+			for(int i=0;i<(int)MapEntitys.size();i++)
 			{
 				double ex=(int)(MapEntitys[i].X*d_level)/d_level;
 				//double ey=(int)(MapEntitys[i].Y*d_level)/d_level;
@@ -187,7 +187,7 @@ class GameMap
 			d_level=1/d_level;
 			x=(int)(x*d_level)/d_level;
 			y=(int)(y*d_level)/d_level;
-			for(int i=0;i<LoadedEntitys.size();i++)
+			for(int i=0;i<(int)LoadedEntitys.size();i++)
 			{
 				double ex=(int)(LoadedEntitys[i]->X*d_level)/d_level;
 				double ey=(int)(LoadedEntitys[i]->Y*d_level)/d_level;

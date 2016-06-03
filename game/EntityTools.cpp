@@ -20,7 +20,7 @@ class EntityTools
 		static vector<Entity*> GetCoincidentEntitys(Entity *n)
 		{
 			vector<Entity*> vec;
-			for(int i=0;i<GameMap::LoadedEntitys.size();i++)
+			for(int i=0;i<(int)GameMap::LoadedEntitys.size();i++)
 			{
 				//int j=ents.size()-i-1;
 				if(GameMap::LoadedEntitys[i]==n)continue;
@@ -48,7 +48,7 @@ class EntityTools
 				if(hitEntity)
 				{
 					vec=GetCoincidentEntitys(ent);
-					for(int i=0;i<vec.size();i++)
+					for(int i=0;i<(int)vec.size();i++)
 					{
 						double Y = yDirect<0 ? vec[i]->Y+vec[i]->Height : vec[i]->Y-ent->Height;
 						bool b=yDirect<0 ? (ent->Y < Y) && (Y < ent->Y+ent->Height) : (ent->Y > Y) && (Y > ent->Y-ent->Height);
@@ -71,7 +71,7 @@ class EntityTools
 						break;
 					}
 				if(hitEntity)
-					for(int i=0;i<vec.size();i++)
+					for(int i=0;i<(int)vec.size();i++)
 					{
 						double X = xDirect<0 ? vec[i]->X+vec[i]->Width : vec[i]->X-ent->Width;
 						bool b=xDirect<0 ? (ent->X < X) && (X < ent->X+ent->Width) : (ent->X > X) && (X > ent->X-ent->Width);
