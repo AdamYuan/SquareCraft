@@ -4,7 +4,7 @@
 class Entity
 {
 	public:
-		double Jump_state=0,Jump_height=1;
+		double Jump_state=0,Jump_height=1.0;
 		bool Jumping=false;
 		int Jump_delay=0;
 		int Id=1,Health=10,HealthMax=10;

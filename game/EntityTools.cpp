@@ -87,7 +87,7 @@ class EntityTools
 		static bool EntityWillHit(Entity *ent,short direct,double dist,bool hitEntity=true)
 		{
 			bool rv=false;
-			int tmp;
+			double tmp;
 			if(direct==_LEFT || direct==_RIGHT)
 			{
 				tmp=ent->X;
