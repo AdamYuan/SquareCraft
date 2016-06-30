@@ -1,4 +1,10 @@
 #pragma once
+#ifdef WINDOWS
+#include <direct.h>
+#include <windows.h>
+#else
+#include <unistd.h>
+#endif
 #include<SDL2/SDL.h>
 #include<iostream>
 #include<string>
@@ -42,13 +48,24 @@ string DESTROY_TEXTURE(double n)
 	return ss.str();
 }
 static string _PATH="";
+string GetFilePath (const string str)
+{
+	size_t found;
+	found=str.find_last_of("/\\");
+	return str.substr(0,found);
+}
 string GetProgramPath()
 {
 	if(_PATH=="")
 	{
-		static char _p[1000];
-		getcwd(_p, 1000);
-		_PATH = string(_p);
+#ifdef WINDOWS
+		char result[ MAX_PATH ];
+		_PATH = GetFilePath(std::string( result, GetModuleFileName( NULL, result, MAX_PATH ) ));
+#else
+		char result[32767];
+		ssize_t count = readlink( "/proc/self/exe", result,32767 );
+		_PATH = GetFilePath(std::string( result, (count > 0) ? count : 0 ));
+#endif
 	}
 	return _PATH;
 }

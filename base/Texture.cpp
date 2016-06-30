@@ -39,6 +39,7 @@ class TextureManager
 			}
 			catch(std::runtime_error)
 			{
+				cout << "a" << endl;
 				return nullptr;
 			}
 		}
