@@ -20,7 +20,7 @@ class GameLoop
 			SDL_GetMouseState(&mx,&my);
 			GameMap::RefreshScreenSize();
 			GameMap::ShowBackground();
-			GameMap::ShowMap();
+			GameMap::UpdateDisplayMap();
 			while(SDL_PollEvent(&evt))
 				GameEvents::ReciveEvent(evt);
 			GameEvents::AfterReciveEvent();

@@ -23,10 +23,10 @@ class Entity
 		}
 		bool operator== (Entity n)
 		{
-			return Id==n.Id && TextureName==n.TextureName;
+			return Id==n.Id && TextureName==n.TextureName && X==n.X && Y==n.Y && Width==n.Width && Height==n.Height;
 		}
 		bool operator!= (Entity n)
 		{
-			return !(Id==n.Id && TextureName==n.TextureName);
+			return !(Id==n.Id && TextureName==n.TextureName && X==n.X && Y==n.Y && Width==n.Width && Height==n.Height);
 		}
 };

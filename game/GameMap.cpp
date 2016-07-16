@@ -121,7 +121,7 @@ class GameMap
 			(*sx)=cx-(Player->X-bx)*BLOCK_SIZE;
 			(*sy)=cy-(MAP_HEIGHT-Player->Y+1-by)*BLOCK_SIZE+0.5;
 		}
-		static void ShowMap()
+		static void UpdateDisplayMap()
 		{
 			double bxs,bys,bxe,bye;
 			GetMapXyFromScreenXy(0,0,&bxs,&bys);
@@ -139,6 +139,7 @@ class GameMap
 				EntitysAi::EntityDo(LoadedEntitys[i]);
 				EntitysDrawer::DrawEntity(LoadedEntitys[i]);
 			}
+			//cout << MapEntitys.size() << endl;
 		}
 		//
 		///////////////BLOCK

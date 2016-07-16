@@ -39,7 +39,7 @@ class TextureManager
 			}
 			catch(std::runtime_error)
 			{
-				cout << "a" << endl;
+				cout << "Error when loading texture:" + path << endl;
 				return nullptr;
 			}
 		}
