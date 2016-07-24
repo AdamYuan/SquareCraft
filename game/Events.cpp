@@ -89,22 +89,11 @@ class GameEvents
 			  GameMap::EntityHitTest(GameMap::Player,_Y,-MOVE_SPEED);
 			  }*/
 			if(up_down)
-			{
-				GameMap::Player->Y += MOVE_SPEED+GRAVITY;
-				GameMap::EntityTools::EntityHitTest(GameMap::Player,_UP);
-			}
+				GameMap::EntitysAi::MoveEntity(GameMap::Player,_UP);
 			if(right_down)
-			{
-				GameMap::Player->X += MOVE_SPEED;
-				GameMap::Player->Facing = _RIGHT;
-				GameMap::Player->Walking=!GameMap::EntityTools::EntityHitTest(GameMap::Player,_RIGHT);
-			}
+				GameMap::EntitysAi::MoveEntity(GameMap::Player,_RIGHT);
 			if(left_down)
-			{
-				GameMap::Player->X -= MOVE_SPEED;
-				GameMap::Player->Facing = _LEFT;
-				GameMap::Player->Walking=!GameMap::EntityTools::EntityHitTest(GameMap::Player,_LEFT);
-			}
+				GameMap::EntitysAi::MoveEntity(GameMap::Player,_LEFT);
 			if(space_down)
 				GameMap::EntitysAi::EntityJump(GameMap::Player);
 			//
@@ -122,7 +111,7 @@ class GameEvents
 				{
 					chblock_delay=0;
 					if(GameMap::CanChangeBlock() && !GameMap::GetBlock()->HaveHitBox)
-						GameMap::SetBlock(Blocks::sand);
+						GameMap::SetBlock(Blocks::stone);
 				}
 			}
 		}

@@ -7,9 +7,8 @@
 #include<cstring>
 #include<sstream>
 #include<vector>
-#include"../base/Window.cpp"
 #include"../base/Texture.cpp"
-#include"../base/Data.cpp" 
+#include"../base/Data.cpp"
 #include"../base/Tools.cpp"
 #include"../block/Block.cpp"
 #include"../block/Blocks.cpp"
@@ -17,7 +16,7 @@
 using namespace std;
 class GameMap
 {
-	private:	
+	private:
 		static Block *MapBlocks[MAP_WIDTH+1][MAP_HEIGHT+1];
 		static vector<Entity> MapEntitys;
 		static void drawBlock(int x,int y,Block* block)
@@ -62,7 +61,7 @@ class GameMap
 			MapEntitys.reserve(ENTITY_MAX*(sizeof(Entity)));
 			std::uninitialized_fill(&MapBlocks[0][0],&MapBlocks[MAP_WIDTH][MAP_HEIGHT],Blocks::air);
 			Player=SetEntity(EntityPlayer());
-			Player->X=MAP_WIDTH/2,Player->Y=70;
+			Player->X=MAP_WIDTH/2,Player->Y=MAP_HEIGHT;
 		}
 		static void Quit()
 		{

@@ -10,10 +10,10 @@ class Block
 	public:
 		bool HaveHitBox=true;
 		int Id=0;
-		double DestroySpeed=0.1;
+		double DestroySpeed=0.1,MoveSpeedTimes=1.0;
 		string Name="",TextureName="";
 		BlockUpdateType UpdateType;
-		Block(int id=0,string name="",string textureName="",double destroySpeed=0.1,bool haveHitBox=true,BlockUpdateType updateType=BlockUpdateType::None)
+		Block(int id=0,string name="",string textureName="",double destroySpeed=0.1,bool haveHitBox=true,BlockUpdateType updateType=BlockUpdateType::None,double moveSpeedTimes=1.0)
 		{
 			Id=id;
 			Name=name;
@@ -21,6 +21,7 @@ class Block
 			DestroySpeed=destroySpeed;
 			HaveHitBox=haveHitBox;
 			UpdateType=updateType;
+			MoveSpeedTimes=moveSpeedTimes;
 		}
 };
 #endif

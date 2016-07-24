@@ -11,7 +11,9 @@ class Entity
 		short Facing=_STOP;
 		bool Walking=false;
 		double X=1,Y=1,TextureX=0,TextureY=0,TextureWidth=1,TextureHeight=1,Width=1,Height=1;
-		double Data;
+		double MoveSpeed=0.4;
+		double Data=0;
+		bool _swim_up=true,_moving_up_or_down=false;
 		string Name,TextureName;
 		/*Entity()
 		  {

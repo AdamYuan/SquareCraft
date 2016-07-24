@@ -24,10 +24,12 @@
 using namespace std;
 int main()
 {
-	srand((unsigned int)time(0));
 	Window::Init(1080,720,"SquareCraft");
 	GameMap::Init();
-	Terrain::SetSeed(Random(0,32768));
+	//int seed;
+	//Terrain::SetSeed(seed=(unsigned int)time(0));
+	Terrain::SetSeed(8740);
+	//cout << seed << endl;
 	Terrain::Generate();
 	while(1)
 	{

@@ -9,11 +9,12 @@ class EntityPlayer : public Entity
 		{
 			Id=id;
 			HealthMax=20;
-			Health=HealthMax;
+			Health=/*HealthMax*/10;
 			TextureName="player";
 			TextureWidth=1,TextureHeight=1.9;
 			Width=0.5,Height=1.9;
 			TextureX=-0.25,TextureY=0;
 			Jump_height=4.05;	
+			MoveSpeed=0.2;
 		}
 };

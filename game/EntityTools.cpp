@@ -1,4 +1,3 @@
-#pragma once
 #include"../game/GameMap.cpp"
 class EntityTools
 {
