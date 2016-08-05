@@ -93,15 +93,15 @@ class EntitysAi
 		}
 		static void Swimming(Entity *ent)
 		{
-			ent->Jumping=false;
 			int x=ent->X+ent->Width/2.0;
 			Block *b=GameMap::GetBlock(x,ent->Y);
-			if(!b->HaveHitBox && b->UpdateType!=BlockUpdateType::Liquid &&	GameMap::GetBlock(x,ent->Y-1.0)->UpdateType == BlockUpdateType::Liquid)
+			if(!b->HaveHitBox && b->UpdateType!=BlockUpdateType::Liquid && GameMap::GetBlock(x,ent->Y-.95)->UpdateType == BlockUpdateType::Liquid)
 				ent->_swim_up=false;
-			if(GameMap::GetBlock(x,ent->Y+1.0)->UpdateType==BlockUpdateType::Liquid)
+			if(GameMap::GetBlock(x,ent->Y+.95)->UpdateType==BlockUpdateType::Liquid || ent->Jumping)
 				ent->_swim_up=true;
 			if(ent->_swim_up)
 				MoveEntity(ent,_UP,false,ent->MoveSpeed);
+			ent->Jumping=false;
 		}
 		static void EntityDo(Entity *ent)
 		{
@@ -118,16 +118,12 @@ class EntitysAi
 		{
 //			if(GameMap::EntityTools::EntityWillHit(ent,_UP,0.1))
 //				return;
-			bool swim=false;
+			bool swim=false,_swim=true;
 			for(int x=ent->X;x<=(ent->X+ent->Width);x++)
 			{
-				if(GameMap::GetBlock(x,ent->Y-1)->HaveHitBox && (!GameMap::GetBlock(x,ent->Y+1)->HaveHitBox && GameMap::GetBlock(x,ent->Y+1)->UpdateType!=BlockUpdateType::Liquid))//Block on the bottom of ent
-					break;
-				if(GameMap::GetBlock(x,ent->Y-1)->UpdateType == BlockUpdateType::Liquid && ent->Y-(int)ent->Y <=0.1)//Liquid on the bottom of ent
-				{
-					swim=true;
-					break;
-				}
+				Block *b=GameMap::GetBlock(x,ent->Y-1);
+				if(!(b->UpdateType == BlockUpdateType::Liquid && !b->HaveHitBox && ent->Y-(int)ent->Y <=0.1))
+					_swim=false;
 				for(int y=ent->Y-1;y<=(ent->Y+ent->Height);y++)
 					if(GameMap::GetBlock(x,y)->UpdateType==BlockUpdateType::Liquid && GameMap::EntityTools::EntityBlockCoincident(ent,x,y,true))
 					{
@@ -135,6 +131,7 @@ class EntitysAi
 						break;
 					}
 			}
+			if (_swim)swim=true;
 			if(!swim)
 			{
 				if(!GameMap::EntityTools::EntityWillHit(ent,_DOWN,0.1))

@@ -9,6 +9,13 @@ class EntityTools
 					n1->Y + n1->Height > n2->Y &&
 					n2->Y + n2->Height > n1->Y);
 		}
+/*		static bool EntityTouch(Entity *n1,Entity *n2)
+		{
+			return (n1->X + n1->Width  >= n2->X &&
+					n2->X + n2->Width  >= n1->X &&
+					n1->Y + n1->Height >= n2->Y &&
+					n2->Y + n2->Height >= n1->Y);
+		}*/
 		static bool EntityBlockCoincident(Entity *n1,int bx,int by,bool allowNoHitboxBlock=false)
 		{
 			if(!GameMap::GetBlock(bx,by)->HaveHitBox && !allowNoHitboxBlock)return false;
@@ -16,6 +23,13 @@ class EntityTools
 			bn.X=bx,bn.Y=by;
 			return EntityCoincident(n1,&bn);
 		}
+/*		static bool EntityBlockTouch(Entity *n1,int bx,int by,bool allowNoHitboxBlock=false)
+		{
+			if(!GameMap::GetBlock(bx,by)->HaveHitBox && !allowNoHitboxBlock)return false;
+			Entity bn=Entity(0,1,1);
+			bn.X=bx,bn.Y=by;
+			return EntityTouch(n1,&bn);
+		}*/
 		static vector<Entity*> GetCoincidentEntitys(Entity *n)
 		{
 			vector<Entity*> vec;
