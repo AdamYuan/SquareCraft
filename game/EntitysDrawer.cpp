@@ -42,9 +42,9 @@ class EntitysDrawer
 			}
 			int sx,sy;
 			GetScreenXyFromMapXy(ent->X+ent->TextureX,ent->Y+ent->TextureHeight-1+ent->TextureY,&sx,&sy);
-			if(sx <= -BLOCK_SIZE-ent->TextureWidth*BLOCK_SIZE || sx >= ScreenW+ent->TextureWidth*BLOCK_SIZE)
+			if(sx <= -BLOCK_SIZE-ent->TextureWidth*BLOCK_SIZE || sx >= Window::ScreenW+ent->TextureWidth*BLOCK_SIZE)
 				return;
-			if(sy <= -BLOCK_SIZE-ent->TextureHeight*BLOCK_SIZE || sy >= ScreenH+ent->TextureHeight*BLOCK_SIZE)
+			if(sy <= -BLOCK_SIZE-ent->TextureHeight*BLOCK_SIZE || sy >= Window::ScreenH+ent->TextureHeight*BLOCK_SIZE)
 				return;
 			SDL_Texture *tex=TextureManager::GetEntityTexture(ent);
 			Window::Draw(tex,sx,sy,ent->TextureWidth*BLOCK_SIZE+0.5,ent->TextureHeight*BLOCK_SIZE+0.5);

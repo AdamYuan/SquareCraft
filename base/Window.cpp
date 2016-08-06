@@ -16,6 +16,11 @@ class Window
 		static std::unique_ptr<SDL_Window, void (*)(SDL_Window*)> mWindow;
 		static std::unique_ptr<SDL_Renderer, void (*)(SDL_Renderer*)> mRenderer;
 	public:
+		static int ScreenW,ScreenH;
+		static void RefreshScreenSize()
+		{
+			SDL_GetWindowSize(Window::GetWindow(),&ScreenW,&ScreenH);
+		}
 		static SDL_Window *GetWindow()
 		{
 			return mWindow.get();
@@ -100,4 +105,5 @@ std::unique_ptr<SDL_Window, void (*)(SDL_Window*)> Window::mWindow
 std::unique_ptr<SDL_Renderer, void (*)(SDL_Renderer*)> Window::mRenderer
 	= std::unique_ptr<SDL_Renderer, void (*)(SDL_Renderer*)>(nullptr, SDL_DestroyRenderer);
 SDL_Rect Window::mBox;
+int Window::ScreenH,Window::ScreenW;
 #endif

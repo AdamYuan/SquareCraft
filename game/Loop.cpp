@@ -18,7 +18,7 @@ class GameLoop
 			Window::Clear();
 			static int mx,my;
 			SDL_GetMouseState(&mx,&my);
-			GameMap::RefreshScreenSize();
+			Window::RefreshScreenSize();
 			GameMap::ShowBackground();
 			GameMap::UpdateDisplayMap();
 			while(SDL_PollEvent(&evt))
@@ -26,7 +26,7 @@ class GameLoop
 			GameEvents::AfterReciveEvent();
 			GameMap::GetSelectedXyFromMouseXy(mx,my);
 			GameMap::SelectBlock(GameMap::SelectedX,GameMap::SelectedY);
-			GameMap::ShowGui();
+			GameMap::Gui::ShowGui();
 			Window::Present();
 		}
 };

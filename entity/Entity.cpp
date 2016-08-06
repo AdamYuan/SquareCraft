@@ -5,11 +5,10 @@ class Entity
 {
 	public:
 		double Jump_state=0,Jump_height=1.0;
-		bool Jumping=false;
+		bool Jumping=false, Walking=false;
 		int Jump_delay=0;
 		int Id=1,Health=10,HealthMax=10;
 		short Facing=_STOP;
-		bool Walking=false;
 		double X=1,Y=1,TextureX=0,TextureY=0,TextureWidth=1,TextureHeight=1,Width=1,Height=1;
 		double MoveSpeed=0.4;
 		double Data=0;

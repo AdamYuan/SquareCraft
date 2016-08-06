@@ -23,9 +23,9 @@ class GameMap
 		{
 			int sx,sy;
 			GetScreenXyFromMapXy(x,y,&sx,&sy);
-			if(sx <= -BLOCK_SIZE || sx >= ScreenW)
+			if(sx <= -BLOCK_SIZE || sx >= Window::ScreenW)
 				return;
-			if(sy <= -BLOCK_SIZE || sy >= ScreenH)
+			if(sy <= -BLOCK_SIZE || sy >= Window::ScreenH)
 				return;
 			SDL_Texture *tex=TextureManager::GetBlockTexture(block);
 			Window::Draw(tex,sx,sy,BLOCK_SIZE,BLOCK_SIZE);
@@ -33,23 +33,13 @@ class GameMap
 			SDL_Texture *des_tex=TextureManager::GetGameTexture(DESTROY_TEXTURE(DestroyBlockState));
 			Window::Draw(des_tex,sx,sy,BLOCK_SIZE,BLOCK_SIZE);
 		}
-		static void drawPlayerHealth()
-		{
-			SDL_Texture *health=TextureManager::GetGameTexture(HEART_TEXTURE);
-			SDL_Texture *health_bg=TextureManager::GetGameTexture(HEART_BG_TEXTURE);
-			for(int i=0;i<Player->HealthMax;i++)
-			{
-				Window::Draw(health_bg,i*16,0,16,16);
-				if(i<Player->Health)
-					Window::Draw(health,i*16,0,16,16);
-			}
-		}
 	public:
 #include"EntitysAi.cpp"
 #include"EntitysDrawer.cpp"
 #include"EntityTools.cpp"
+#include"Gui.cpp"
 #include"../block/BlocksUpdate.cpp"
-		static int SelectedX,SelectedY,ScreenW,ScreenH;
+		static int SelectedX,SelectedY;
 		static double DestroyBlockState;
 		static vector<Entity*> LoadedEntitys;
 		static Entity* Player;
@@ -78,17 +68,9 @@ class GameMap
 				 GetBlock(x,y-1) ->HaveHitBox||
 				 GetBlock(x,y+1) ->HaveHitBox); 
 		}
-		static void RefreshScreenSize()
-		{
-			SDL_GetWindowSize(Window::GetWindow(),&ScreenW,&ScreenH);
-		}
 		static void ShowBackground()
 		{
-			Window::Draw(TextureManager::GetGameTexture(BG_TEXTURE),0,0,ScreenW,ScreenH);
-		}
-		static void ShowGui()
-		{
-			drawPlayerHealth();
+			Window::Draw(TextureManager::GetGameTexture(BG_TEXTURE),0,0,Window::ScreenW,Window::ScreenH);
 		}
 		static void GetSelectedXyFromMouseXy(int mx,int my)
 		{
@@ -101,8 +83,8 @@ class GameMap
 		}
 		static void GetMapXyFromScreenXy(int sx,int sy,double *bx,double *by)
 		{
-			int cx=ScreenW/2-BLOCK_SIZE/2;
-			int cy=ScreenH/2-BLOCK_SIZE/2;
+			int cx=Window::ScreenW/2-BLOCK_SIZE/2;
+			int cy=Window::ScreenH/2-BLOCK_SIZE/2;
 			sx+=(int)((Player->X-1)*BLOCK_SIZE)-cx;
 			sy+=(int)(((MAP_HEIGHT-Player->Y+1)-1)*BLOCK_SIZE)-cy;
 			(*bx)=(sx/BLOCK_SIZE)+1;
@@ -115,8 +97,8 @@ class GameMap
 		static void GetScreenXyFromMapXy(double bx,double by,int *sx,int *sy)
 		{
 			by=MAP_HEIGHT-by+1;
-			double cx=ScreenW/2-BLOCK_SIZE/2;
-			double cy=ScreenH/2-BLOCK_SIZE/2;
+			double cx=Window::ScreenW/2-BLOCK_SIZE/2;
+			double cy=Window::ScreenH/2-BLOCK_SIZE/2;
 			(*sx)=cx-(Player->X-bx)*BLOCK_SIZE;
 			(*sy)=cy-(MAP_HEIGHT-Player->Y+1-by)*BLOCK_SIZE+0.5;
 		}
@@ -124,7 +106,7 @@ class GameMap
 		{
 			double bxs,bys,bxe,bye;
 			GetMapXyFromScreenXy(0,0,&bxs,&bys);
-			GetMapXyFromScreenXy(ScreenW+BLOCK_SIZE+1,ScreenH+BLOCK_SIZE+1,&bxe,&bye);
+			GetMapXyFromScreenXy(Window::ScreenW+BLOCK_SIZE+1,Window::ScreenH+BLOCK_SIZE+1,&bxe,&bye);
 			for(int bx=bxs;bx<=bxe;bx++)
 				for(int by=0;by<=MAP_HEIGHT;by++)
 				{
@@ -210,6 +192,6 @@ class GameMap
 Block *GameMap::MapBlocks[MAP_WIDTH+1][MAP_HEIGHT+1];
 vector<Entity> GameMap::MapEntitys;
 vector<Entity*> GameMap::LoadedEntitys;
-int GameMap::SelectedX=1,GameMap::SelectedY=1,GameMap::ScreenW=100,GameMap::ScreenH=100;
+int GameMap::SelectedX=1,GameMap::SelectedY=1;
 double GameMap::DestroyBlockState=0;
 Entity *GameMap::Player = new EntityPlayer();
